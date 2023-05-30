@@ -1,0 +1,26 @@
+
+
+init python:
+
+    def createButton(picture,cord_x,cord_y,zoomp):
+    #make the gallery
+        g = Gallery()
+        g.transition = dissolve
+        g.locked_button ="gui/g_frame.png"
+        
+        g.button(picture[0])
+        
+        for i in range(len(picture[5])):
+            g.image(picture[5][i])
+            g.condition(picture[1][i])
+            
+        
+        #picture = index of list containing images for the button
+        # [title , unlock condition ,[picture1,picture2]]
+        #cord = index of list containing x and y cordinates to show image
+
+        img_mask = AlphaMask(im.Crop(im.FactorScale(picture[5][0],zoomp), (cord_x, cord_y, 312, 715)), "gui/g_framep.png")
+        img_comp = Composite( (312, 715), (0, 0), "gui/g_frame.png", (0, 0), img_mask)
+        img_button= g.make_button(picture[0], img_comp)
+
+        return img_button
